@@ -1,0 +1,32 @@
+# 添加
+# POST http://localhost:3000/test/add
+# Content-Type: application/json
+
+# {
+# 	"name": "test3"
+# }
+
+
+
+# 删除
+# DELETE http://localhost:3000/test/delete/1
+
+
+
+# 更新
+# PUT http://localhost:3000/test/update/2
+# Content-Type: application/json
+
+# {
+#   "name": "test22222222222222"
+# }
+
+
+
+# 获取（全部 / 搜索条件）
+# GET http://localhost:3000/test/list?name=test3
+
+
+
+# 根据 id 获取
+GET http://localhost:3000/test/by/3
