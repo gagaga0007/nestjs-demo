@@ -40,3 +40,13 @@
 
 # 自定义工厂
 # GET http://localhost:3000/test/factory/test
+
+
+
+# 使用其他模块的 service
+# GET http://localhost:3000/test/test2/findAll
+
+
+
+# 使用全局模块 & 动态模块
+GET http://localhost:3000/test/global

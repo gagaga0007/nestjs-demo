@@ -1,4 +1,7 @@
-import { TestProviderName } from '../../model/test';
+import { GlobalProviderName } from './../global/dto/global';
+import { Test2Service } from './../test2/test2.service';
+import { ModuleName } from '../../core/common';
+import { TestProviderName } from './dto/test';
 import {
   Body,
   Controller,
@@ -10,7 +13,7 @@ import {
   Put,
   Inject,
 } from '@nestjs/common';
-import { ParamsProps } from 'src/model/common';
+import { ParamsProps } from 'src/core/common';
 import { Test } from './entities/test.entity';
 import { TestService } from './test.service';
 
@@ -22,13 +25,18 @@ import { TestService } from './test.service';
  * 查看请求头 @Header
  * 使用 module 的自定义值等，使用 @Inject 引入
  */
-@Controller('test')
+@Controller(ModuleName.TEST)
 export class TestController {
   // test.module.ts 中 providers 直接使用 service 简写时，删除 @Inject('xxx')
   constructor(
+    // 注入自定义 providers
     @Inject(TestProviderName.TEST) private testService: TestService,
     @Inject(TestProviderName.TEST_VALUE) private testValue: string[], // module 传入的自定义值
     @Inject(TestProviderName.TEST_FACTORY) private testFactory: string, // module 传入的自定义工厂
+    // 注入全局引入的模块
+    @Inject(GlobalProviderName.GLOBAL) private global: { [key: string]: any },
+    // 其他模块的内容
+    private test2Service: Test2Service,
   ) {}
 
   @Post('/add')
@@ -59,18 +67,30 @@ export class TestController {
   @Get('/value/test')
   getTestValue() {
     return {
-      // 使用 @Inject 注入的自定义值
+      // 使用注入的自定义值
       injectValue: this.testValue,
     };
   }
 
   @Get('/factory/test')
   getTestFactory() {
-    // 使用 @Inject 注入的自定义工厂函数
+    // 使用注入的自定义工厂函数
     const msg = this.testFactory;
 
     return {
       injectFactoryReturnMsg: msg,
     };
+  }
+
+  @Get('/test2/findAll')
+  getTest2Service() {
+    // 使用其他模块的 service
+    return this.test2Service.findAll();
+  }
+
+  @Get('/global')
+  getGlobal() {
+    // 使用全局引入的模块
+    return this.global;
   }
 }

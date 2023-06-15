@@ -4,10 +4,12 @@
 nestjs-demo
 |- RESTClient 接口测试文件，搭配 VSCode 的 Rest Client 插件使用
 |- src
-  |- core 配置等文件
-  |- model 数据类型等文件
+  |- core 配置、全局数据类型等文件
+  |- middleware 中间件
   |- modules 模块，包含各个模块自己的控制器、服务和其他相关组件
     |- test 第一个 demo，命名为 test
+      |- entities 实体
+      |- model 模块类型等文件
   |- test 测试文件，目前没用
 ```
 

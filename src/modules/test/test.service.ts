@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, Like, Repository } from 'typeorm';
-import { ApiResultProps, DataResultProps } from '../../model/common';
+import { ApiResultProps, DataResultProps } from '../../core/common';
 import { Test } from './entities/test.entity';
 
 @Injectable()

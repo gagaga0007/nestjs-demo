@@ -15,3 +15,7 @@ export interface DataProps {
   id: number;
   createTime: string;
 }
+
+export enum ModuleName {
+  TEST = 'test',
+}
