@@ -1,4 +1,4 @@
-import { TestProviderName } from '../model/test';
+import { TestProviderName } from '../../model/test';
 import {
   Body,
   Controller,
