@@ -2,7 +2,7 @@
 
 ## 开发模式启动
 
-`yarn start:dev`
+`yarn run start:dev`
 
 ## 接口调试
 
