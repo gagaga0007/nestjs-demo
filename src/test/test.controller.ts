@@ -1,3 +1,4 @@
+import { TestProviderName } from '../model/test';
 import {
   Body,
   Controller,
@@ -7,6 +8,7 @@ import {
   Query,
   Delete,
   Put,
+  Inject,
 } from '@nestjs/common';
 import { ParamsProps } from 'src/model/common';
 import { Test } from './entities/test.entity';
@@ -18,10 +20,16 @@ import { TestService } from './test.service';
  * @Query 为简写 / 完整 @Request req; / 调用 req.query.id; / 获取 ? 拼接传的值
  * 动态路由，后面可以跟多个，以冒号拼接 /xxx/:id/:name
  * 查看请求头 @Header
+ * 使用 module 的自定义值等，使用 @Inject 引入
  */
 @Controller('test')
 export class TestController {
-  constructor(private testService: TestService) {}
+  // test.module.ts 中 providers 直接使用 service 简写时，删除 @Inject('xxx')
+  constructor(
+    @Inject(TestProviderName.TEST) private testService: TestService,
+    @Inject(TestProviderName.TEST_VALUE) private testValue: string[], // module 传入的自定义值
+    @Inject(TestProviderName.TEST_FACTORY) private testFactory: string, // module 传入的自定义工厂
+  ) {}
 
   @Post('/add')
   addTest(@Body() body: Test) {
@@ -46,5 +54,23 @@ export class TestController {
   @Get('/by/:id')
   getTest(@Param() params: ParamsProps) {
     return this.testService.getTestById(params.id);
+  }
+
+  @Get('/value/test')
+  getTestValue() {
+    return {
+      // 使用 @Inject 注入的自定义值
+      injectValue: this.testValue,
+    };
+  }
+
+  @Get('/factory/test')
+  getTestFactory() {
+    // 使用 @Inject 注入的自定义工厂函数
+    const msg = this.testFactory;
+
+    return {
+      injectFactoryReturnMsg: msg,
+    };
   }
 }

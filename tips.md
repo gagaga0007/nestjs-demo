@@ -41,30 +41,102 @@ Content-Type: application/json
 
 ### 创建 module
 
-`nest g module \<name\>`
+`nest g module <name>`
 
 ### 创建 controller
 
-`nest g controller \<name\>`
+`nest g controller <name>`
 
 ### 创建 service
 
-`nest g service \<name\>`
+`nest g service <name>`
 
 > 如果不需要生成测试文件，在语句后增加 --no-spec
 
 ---
 
-# 全局配置
+# 配置
+
+## 配置热重载（搭配 webpack）
+
+每次文件修改都会重新编译，如果业务逻辑复杂会影响开发效率，所以引入 webpack 进行热重载。
+
+### 安装依赖包
+
+```
+yarn add webpack-node-externals run-script-webpack-plugin webpack
+```
+
+### 增加配置文件
+
+在根目录新增 `webpack-hmr.config.js` 配置文件，并在其中增加代码：
+
+```
+const nodeExternals = require('webpack-node-externals');
+const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
+
+module.exports = function (options, webpack) {
+  return {
+    ...options,
+    entry: ['webpack/hot/poll?100', options.entry],
+    externals: [
+      nodeExternals({
+        allowlist: ['webpack/hot/poll?100'],
+      }),
+    ],
+    plugins: [
+      ...options.plugins,
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.WatchIgnorePlugin({
+        paths: [/\.js$/, /\.d\.ts$/],
+      }),
+      new RunScriptWebpackPlugin({ name: options.output.filename, autoRestart: false }),
+    ],
+  };
+};
+```
+
+### 修改代码
+
+在 `/src/main.ts` 中添加代码：
+
+```
+if (module.hot) {
+	module.hot.accept();
+	module.hot.dispose(() => app.close());
+}
+```
+
+### 安装依赖包
+
+配置完上一步后，ts 会报错，安装如下依赖包解决：
+
+```
+yarn add -D @types/webpack-env
+```
+
+### 修改代码
+
+修改 `package.json` 代码，将
+
+```
+"start:dev": "nest start --watch",
+```
+
+改成
+
+```
+"start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+```
+
+热重载配置结束
 
 ## 全局配置前缀
 
-在 `main.ts` 中编辑：
+在 `/src/main.ts` 中添加代码：
 
 ```
-// ...
 app.setGlobalPrefix('xxx')
-// ...
 ```
 
 配置后访问路径则变成了 `.../xxx/...`
@@ -81,7 +153,7 @@ app.setGlobalPrefix('xxx')
 
 ## 引入 TypeORM
 
-在 `app.module.ts` 的 `import` 中引入，详见相关文件代码。
+在 `/src/app.module.ts` 的 `import` 中引入，详见相关文件代码。
 
 ## 调试
 
@@ -90,4 +162,4 @@ app.setGlobalPrefix('xxx')
 
 # 例子
 
-见 `src/test` 下代码。
+见 `/src/test` 下代码。

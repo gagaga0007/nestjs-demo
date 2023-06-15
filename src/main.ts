@@ -8,5 +8,11 @@ async function bootstrap() {
   // app.setGlobalPrefix('api');
 
   await app.listen(3000);
+
+  // 配置 webpack 热重载
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();

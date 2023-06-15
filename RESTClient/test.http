@@ -29,4 +29,14 @@
 
 
 # 根据 id 获取
-GET http://localhost:3000/test/by/3
+# GET http://localhost:3000/test/by/3
+
+
+
+# 自定义值
+# GET http://localhost:3000/test/value/test
+
+
+
+# 自定义工厂
+# GET http://localhost:3000/test/factory/test
