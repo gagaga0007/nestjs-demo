@@ -7,9 +7,13 @@ nestjs-demo
   |- core 配置、全局数据类型等文件
   |- middleware 中间件
   |- modules 模块，包含各个模块自己的控制器、服务和其他相关组件
-    |- test 第一个 demo，命名为 test
+    |- test demo1，命名为 test
       |- entities 实体
       |- model 模块类型等文件
+    |- test2 demo2，命名为 test2
+      |- ...
+    |- test3 demo3，命名为 test3
+      |- ...
   |- test 测试文件，目前没用
 ```
 
