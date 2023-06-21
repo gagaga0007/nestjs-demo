@@ -242,6 +242,24 @@ TypeORM 是官方推荐的 ORM 工具库。
 
 _例子可见 `/src/modules/test/entities` 下代码_
 
+## 一对一关系、一对多关系
+
+### 一对一关系
+
+在实体中通过 `@OneToOne` 定义，在 `@JoinColumn` 中可以自定义列名
+
+_例子可见 `/src/modules/test/entities/testDetail.entity.ts` 下代码_
+
+> 不要忘记在 `/src/modules/test/test.module.ts` 的 `imports` 中引入新创建的实例
+
+### 一对多关系
+
+在使用的实体中通过 `@OneToMany` 定义，在被使用的实体中通过 `@ManyToOne` 定义
+
+_例子可见 `/src/modules/test/entities/test.entity.ts` 和 `/src/modules/test3/entities/test3.entity.ts` 下代码_
+
+---
+
 # 例子
 
 见 `/src/modules/test` 下代码。

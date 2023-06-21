@@ -7,8 +7,10 @@ import { Test } from './entities/test.entity';
 import { TestProviderName } from './dto/test';
 import { TestController } from './test.controller';
 import { TestService } from './test.service';
+import { TestDetail } from './entities/testDetail.entity';
+import { Test3 } from '../test3/entities/test3.entity';
 
-const TestORMModule = TypeOrmModule.forFeature([Test]);
+const TestORMModule = TypeOrmModule.forFeature([Test, TestDetail, Test3]);
 
 @Module({
   imports: [TestORMModule],

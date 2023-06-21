@@ -1,8 +1,11 @@
+import { Test3 } from 'src/modules/test3/entities/test3.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 /**
@@ -25,4 +28,9 @@ export class Test {
   // // 自动生成
   // @Generated('uuid')
   // uuid: string;
+
+  // 一对多关系，从 test3 的实体中引入
+  @OneToMany(() => Test3, (test3) => test3.orderId)
+  @JoinColumn()
+  test3: Test3[];
 }
