@@ -4,6 +4,7 @@ import { UpdateTest3Dto } from './dto/update-test3.dto';
 
 @Injectable()
 export class Test3Service {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create(createTest3Dto: CreateTest3Dto) {
     return 'This action adds a new test3';
   }
@@ -16,6 +17,7 @@ export class Test3Service {
     return `This action returns a #${id} test3`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(id: number, updateTest3Dto: UpdateTest3Dto) {
     return `This action updates a #${id} test3`;
   }

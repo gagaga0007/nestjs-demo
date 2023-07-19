@@ -4,6 +4,6 @@ import { Test3Controller } from './test3.controller';
 
 @Module({
   controllers: [Test3Controller],
-  providers: [Test3Service]
+  providers: [Test3Service],
 })
 export class Test3Module {}
